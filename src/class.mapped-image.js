@@ -1,12 +1,9 @@
 class MappedImage {
   /**
-   *
-   *
-   * @param {string} image
    * @param {Area[]} areas
+   * @param {string} image
    */
-  constructor(id, image, areas) {
-    this.id = id;
+  constructor(areas, image) {
     this.image = image;
     this.areas = areas;
     this.tempA = null;
@@ -18,13 +15,5 @@ class MappedImage {
   drawArea(x, y) {
     if (this.tempA === null) this.tempA = new Area('rect', [x, y]);
     else this.tempA.addCoord(x, y);
-  }
-
-  setEvents() {
-    const html = document.getElementById(this.id);
-    const self = this;
-    html.onmousedown = (e) => {
-      self.drawArea(e.offsetX, e.offsetY);
-    };
   }
 }
