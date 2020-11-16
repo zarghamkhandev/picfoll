@@ -1,5 +1,5 @@
-const mappedImageGen = (p) => {
-  const map = new MappedImage();
+const imageMapCreator = (p) => {
+  p.map = new ImageMap();
   let tempArea = new Area();
 
   p.setup = () => {
@@ -12,9 +12,9 @@ const mappedImageGen = (p) => {
     }
     p.background(200);
     p.fill(0);
-    const allAreas = map.areas.concat([tempArea]);
+    const allAreas = p.map.areas.concat([tempArea]);
     allAreas.forEach((area) => {
-      if (area.shapeExists()) {
+      if (area.isValidShape()) {
         p.rect(
           area.coords[0].x,
           area.coords[0].y,
@@ -26,11 +26,20 @@ const mappedImageGen = (p) => {
   };
 
   p.mousePressed = () => {
-    tempArea.initAs('rect', p.mouseX, p.mouseY);
+    if (p.mouseIsHover()) tempArea.initAs('rect', p.mouseX, p.mouseY);
   };
 
   p.mouseReleased = () => {
-    map.addArea(tempArea);
+    if (tempArea.isValidShape()) p.map.addArea(tempArea);
     tempArea = new Area();
+  };
+
+  p.mouseIsHover = () => {
+    return (
+      p.mouseX <= p.width &&
+      p.mouseX >= 0 &&
+      p.mouseY <= p.height &&
+      p.mouseY >= 0
+    );
   };
 };

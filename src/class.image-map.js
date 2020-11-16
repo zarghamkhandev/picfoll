@@ -1,4 +1,4 @@
-class MappedImage {
+class ImageMap {
   /**
    * @param {Area[]} areas
    * @param {string} image

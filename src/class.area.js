@@ -24,8 +24,13 @@ class Area {
       }
     }
   }
-  shapeExists() {
-    return this.coords.length > 1;
+  isValidShape() {
+    switch (this.shape) {
+      case 'rect':
+        return this.coords.length === 2 && !this.coords[1].oneIsEmpty();
+      default:
+        return false;
+    }
   }
   sethref(url) {
     this.href = url;
